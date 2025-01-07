@@ -1,0 +1,137 @@
+
+
+
+step-1: know the resource(s)
+
+- user
+- todo
+
+step-2: know the relationship(s) b/w resources
+
+- user has many todos
+- todo belongs to user
+
+step-3: know the action(s) on resource(s)
+
+- user
+  - create
+  - read
+  - update
+  
+- todo
+    - create
+    - read
+    - update
+    - delete
+
+step-4: know the representation(s) of resource(s)
+
+    - html
+    - json
+    - xml
+    - csv
+    - pdf
+
+step-5: know the communication protocol(s)
+
+    - http
+    - https    
+
+------------------------------------------------------    
+REST API Design
+------------------------------------------------------
+
+
+step-6: know the endpoint(s) / URI of resource(s)
+
+    - user
+        - /users
+        - /users/:id
+        - /users/:id/todos
+        - /users/:id/todos/:id
+        
+    - todo
+        - /todos
+        - /todos/:id
+
+
+step-7: know the method(s) on resource(s)
+
+
+    read operation(s)
+
+    - GET    
+    - HEAD
+    - OPTIONS
+
+    write operation(s)
+
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+
+step-8: know the status code(s) of response(s)
+
+    - 1xx
+    - 2xx
+        - 200 OK
+        - 201 Created
+        - 204 No Content
+    - 3xx
+    - 4xx
+        - 400 Bad Request
+        - 401 Unauthorized
+        - 403 Forbidden
+        - 404 Not Found
+        - 405 Method Not Allowed
+        - 409 Conflict
+    - 5xx
+        - 500 Internal Server Error
+        - 503 Service Unavailable
+
+
+step-9: know the header(s) of request(s) and response(s)
+
+    - Content-Type
+    - Accept
+    - Authorization
+    - Cache-Control
+    - Connection
+    - Content-Length
+    - Content-MD5
+    - Content-Type
+    - Date
+    - Expect
+    - From
+    - Host
+    - If-Match
+    - If-Modified-Since
+    - If-None-Match
+    - If-Range
+    - If-Unmodified-Since
+    - Max-Forwards
+    - Pragma
+    - Proxy-Authorization
+    - Range
+    - Referer
+    - TE
+    - Upgrade
+    - User-Agent
+    - Via
+    - Warning
+
+
+
+---------------------------------
+
+
+GET /todos
+Accept: application/json
+
+
+POST /todos
+Content-Type: application/json
+
+
+---------------------------------

@@ -1,0 +1,43 @@
+type Query {
+  getCustomer(id: Int!): Customer
+  getAccount(id: Int!): Account
+  getAllData: AllData
+}
+
+type Mutation {
+  addCustomer(input: NewCustomerInput!): Customer
+  addAccount(input: NewAccountInput!): Account
+}
+
+type Customer {
+  id: Int!
+  name: String!
+  email: String!
+  phone: String!
+}
+
+type Account {
+  id: Int!
+  customer_id: Int!
+  account_type: String!
+  balance: Float!
+}
+
+input NewCustomerInput {
+  id: Int!
+  name: String!
+  email: String!
+  phone: String!
+}
+
+input NewAccountInput {
+  id: Int!
+  customer_id: Int!
+  account_type: String!
+  balance: Float!
+}
+
+type AllData {
+  customers: [Customer!]!
+  accounts: [Account!]!
+}

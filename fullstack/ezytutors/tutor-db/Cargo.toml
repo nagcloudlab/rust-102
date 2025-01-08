@@ -1,0 +1,22 @@
+[package]
+name = "tutor-db"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = "4.2.1"
+actix-rt = "2.7.0"
+# Data serialization library
+serde = { version = "1.0.144", features = ["derive"] }
+# Other utilities
+chrono = {version = "0.4.22", features = ["serde"]}
+# cors
+actix-cors = "0.6.0-beta.10"
+
+# Database access
+sqlx = {version = "0.6.2", default_features = false, features = ["postgres","runtime-tokio-native-tls", "macros","chrono"]}
+
+
+# Environment access
+dotenv = "0.15.0"
+

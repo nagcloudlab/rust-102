@@ -1,5 +1,10 @@
 /* Drop tables if they already exist*/
 
+
+docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=postgres --name postgres postgres
+docker exec -it postgres psql -U postgres
+
+
 drop table if exists ezy_course_c6 cascade;
 drop table if exists ezy_tutor_c6;
 

@@ -1,5 +1,5 @@
 
-
+docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=postgres  postgres
 docker exec -it f82accd9a924 psql -U <username>
 
 create database ezytutors;

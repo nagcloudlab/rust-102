@@ -1,14 +1,12 @@
 
-docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=postgres  postgres
-docker exec -it f82accd9a924 psql -U <username>
+docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=postgress  postgres
+docker exec -it f82accd9a924 psql -U postgres
 
-create database ezytutors;
-create user truuser with password 'mypassword';
-grant all privileges on database ezytutors to truuser;
-GRANT CREATE ON SCHEMA public TO truuser;
-
-
-docker exec -it f82accd9a924 psql -U truuser -d ezytutors --password
+-- create database ezytutors;
+-- create user truuser with password 'mypassword';
+-- grant all privileges on database ezytutors to truuser;
+-- GRANT CREATE ON SCHEMA public TO truuser;
+-- docker exec -it f82accd9a924 psql -U truuser -d ezytutors --password
 
 /* Drop table if it already exists*/
 drop table if exists ezy_course_c4;

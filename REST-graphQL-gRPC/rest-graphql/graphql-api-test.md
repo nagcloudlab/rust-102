@@ -17,7 +17,7 @@ http://127.0.0.1:8080/graphql
 curl -X POST \
 -H "Content-Type: application/json" \
 -d '{
-"query": "query { getCustomer(id: 1) { id name email phone } }"
+"query": "query { getCustomer(id: 1) { id name } }"
 }' \
 http://127.0.0.1:8080/graphql | jq
 

@@ -1,5 +1,5 @@
+use actix_cors::Cors;
 use std::path;
-
 // main.rs
 use actix_web::{App, HttpServer};
 use dotenv::dotenv;
@@ -30,10 +30,18 @@ async fn main() -> std::io::Result<()> {
     let pool = db::init_db().await.expect("Failed to initialize database");
 
     HttpServer::new(move || {
+        // Configure CORS
+        let cors = Cors::default()
+            .allow_any_origin() // Allow all origins
+            .allow_any_method() // Allow all HTTP methods (GET, POST, etc.)
+            .allow_any_header() // Allow all headers
+            .supports_credentials(); // If you need credentials like cookies
+
         App::new()
             .app_data(actix_web::web::Data::new(pool.clone()))
             .app_data(actix_web::web::Data::new(kafka_producer.clone()))
             .wrap(tracing_actix_web::TracingLogger::default())
+            .wrap(cors)
             .configure(api::init_routes)
     })
     .bind(("127.0.0.1", 8181))?

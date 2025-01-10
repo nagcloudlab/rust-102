@@ -18,6 +18,8 @@ async fn transaction_history(pool: web::Data<DbPool>) -> impl Responder {
 async fn transfer(pool: web::Data<DbPool>, req: web::Json<TransferRequest>) -> impl Responder {
     log::info!("Received transfer request: {:?}", req);
 
+    // custom validation
+
     if let Err(errors) = req.validate() {
         log::warn!("Validation errors: {:?}", errors);
         return HttpResponse::BadRequest().json(errors);
@@ -61,4 +63,5 @@ async fn transfer(pool: web::Data<DbPool>, req: web::Json<TransferRequest>) -> i
 
 pub fn init_routes(cfg: &mut web::ServiceConfig) {
     cfg.service(transfer);
+    cfg.service(transaction_history);
 }

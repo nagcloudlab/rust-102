@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>WebAssembly Calculator</title>
+  </head>
+  <body>
+    <h1>WebAssembly Calculator</h1>
+
+    <input type="number" id="num1" placeholder="Enter number 1" />
+    <input type="number" id="num2" placeholder="Enter number 2" />
+
+    <button onclick="calculate('add')">Add</button>
+    <button onclick="calculate('subtract')">Subtract</button>
+    <button onclick="calculate('multiply')">Multiply</button>
+    <button onclick="calculate('divide')">Divide</button>
+
+    <p id="result">Result:</p>
+
+    <script type="module">
+      import init, {
+        add,
+        subtract,
+        multiply,
+        divide,
+      } from "./pkg/wasm_calculator.js";
+
+      async function run() {
+        await init();
+
+        window.calculate = async (operation) => {
+          const num1 = parseFloat(document.getElementById("num1").value);
+          const num2 = parseFloat(document.getElementById("num2").value);
+          let result;
+
+          switch (operation) {
+            case "add":
+              result = add(num1, num2);
+              break;
+            case "subtract":
+              result = subtract(num1, num2);
+              break;
+            case "multiply":
+              result = multiply(num1, num2);
+              break;
+            case "divide":
+              try {
+                result = await divide(num1, num2);
+              } catch (e) {
+                result = e;
+              }
+              break;
+          }
+
+          document.getElementById("result").textContent = `Result: ${result}`;
+        };
+      }
+
+      run();
+    </script>
+  </body>
+</html>

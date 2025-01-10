@@ -13,7 +13,6 @@ mod repository;
 #[path = "../iter2/service.rs"]
 mod service;
 
-use env_logger;
 use tracing_subscriber;
 
 #[actix_web::main]

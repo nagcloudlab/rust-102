@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Money Transfer</title>
+  </head>
+  <body>
+    <h1>Money Transfer System</h1>
+
+    <div>
+      <h3>Sender Account</h3>
+      <p>Account Number: <span id="sender-number">A</span></p>
+    </div>
+    <div>
+      <h3>Recipient Account</h3>
+      <p>Account Number: <span id="recipient-number">B</span></p>
+    </div>
+    <div>
+      <h3>Transfer</h3>
+      <input type="number" id="amount" placeholder="Enter amount to transfer" />
+      <button id="transfer-btn">Transfer</button>
+    </div>
+    <p id="result"></p>
+
+    <script type="module">
+      import init, { Account } from "./pkg/wasm_client.js";
+
+      async function run() {
+        await init();
+
+        const sender = new Account("A", 100.0);
+        const recipient = new Account("B", 100.0);
+
+        document
+          .getElementById("transfer-btn")
+          .addEventListener("click", async () => {
+            const amount = parseFloat(document.getElementById("amount").value);
+            const resultEl = document.getElementById("result");
+
+            // Validate transfer locally using WebAssembly
+            try {
+              sender.validate_transfer(amount);
+
+              console.log(sender);
+              console.log(recipient);
+
+              let body = {
+                from_account: "ACC001",
+                to_account: "ACC002",
+                amount: amount,
+              };
+
+              console.log(body);
+
+              // Make REST API call for the transfer
+              const response = await fetch("http://localhost:8181/transfer", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+              });
+
+              if (response.ok) {
+                resultEl.textContent = `Successfully transferred $${amount}`;
+                resultEl.style.color = "green";
+              } else {
+                const error = await response.json();
+                resultEl.textContent = `Error: ${error.message}`;
+                resultEl.style.color = "red";
+              }
+            } catch (error) {
+              resultEl.textContent = `Validation Error: ${error}`;
+              resultEl.style.color = "red";
+            }
+          });
+      }
+
+      run();
+    </script>
+  </body>
+</html>
